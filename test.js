@@ -1,11 +1,11 @@
 import { promises as fs } from "fs";
-import * as nbt from "nbt-parser";
+import NBT from "nbt-parser";
 
 let data = await fs.readFile("./nbt/hello_world.nbt");
 console.log(data);
 
-data = await nbt.parse(data);
-console.log(JSON.stringify(data,null,"  "));
+let content = await NBT.parse(data);
+console.log(JSON.stringify(content,null,"  "));
 
-data = Buffer.from(await nbt.write(data));
+data = await NBT.write(content);
 console.log(data);

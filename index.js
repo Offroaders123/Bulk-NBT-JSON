@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import readline from "readline";
-import * as nbt from "nbt-parser";
+import NBT from "nbt-parser";
 
 const input = readline.createInterface({ input: process.stdin, output: process.stdout });
 input.on("close",() => process.exit(0));
@@ -62,7 +62,7 @@ for (const entry of entries){
 
   console.log(`Converting "${name}"...`);
   let data = await fs.readFile(path.join(sourceDir,name),{ encoding: method ? "utf8" : null });
-  data = method ? Buffer.from(await nbt.write(JSON.parse(data))) : await nbt.parse(data);
+  data = method ? await NBT.write(JSON.parse(data)) : await NBT.parse(data);
 
   const mirrorName = `${path.basename(name,extension)}.${conversions[method].inverse}`;
   console.log(`Saving "${mirrorName}"...\n`);
