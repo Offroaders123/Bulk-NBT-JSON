@@ -1,6 +1,6 @@
 {
   "type": "module",
   "dependencies": {
-    "nbt-parser": "github:Offroaders123/NBT-Parser#exp-node-fork"
+    "nbt-parser": "github:Offroaders123/NBT-Parser#exp-modulate"
   }
 }
