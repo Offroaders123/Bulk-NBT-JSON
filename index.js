@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import readline from "readline";
-import NBT from "nbt-parser";
+import * as NBT from "nbtify";
 
 const input = readline.createInterface({ input: process.stdin, output: process.stdout });
 input.on("close",() => process.exit(0));
@@ -26,23 +26,23 @@ async function prompt(query,fallback,values = []){
 
 console.log("------ Bulk NBT to JSON Converter ------\n");
 console.log("Which conversion method would you like to use?");
-console.log("  a) NBT => JSON    b) JSON => NBT");
+console.log("  a) NBT => SNBT    b) SNBT => NBT");
 
 const method = await prompt("> ","a",["a","b"]) === "a" ? 0 : 1;
 const conversions = [
   {
     kind: "nbt",
-    inverse: "json"
+    inverse: "snbt"
   },
   {
-    kind: "json",
+    kind: "snbt",
     inverse: "nbt"
   }
 ];
 
 console.log(`\nEnter the path to your ${conversions[method].kind.toUpperCase()} directory:`);
 
-const sourceDir = await prompt("> ",method ? "./test/nbt_json" : "./test/nbt");
+const sourceDir = await prompt("> ",method ? "./test/nbt_snbt" : "./test/nbt");
 const mirrorDir = `${sourceDir}_${conversions[method].inverse}`;
 
 try {
@@ -67,12 +67,13 @@ for (const entry of entries){
   if (extension !== `.${conversions[method].kind}`) continue;
 
   console.log(`Converting "${name}"...`);
+  /** @type {string | Uint8Array} */
   let data = await fs.readFile(path.join(sourceDir,name),{ encoding: method ? "utf8" : null });
-  data = method ? await NBT.write(JSON.parse(/** @type {string} */ (data))) : await NBT.parse(data);
+  data = method ? await NBT.write(NBT.parse(/** @type {string} */ (data))) : NBT.stringify(await NBT.read(/** @type {Uint8Array} */ (data)),{ space: 2 });
 
   const mirrorName = `${path.basename(name,extension)}.${conversions[method].inverse}`;
   console.log(`Saving "${mirrorName}"...\n`);
-  await fs.writeFile(path.join(mirrorDir,mirrorName),method ? data : JSON.stringify(data,null,"  "));
+  await fs.writeFile(path.join(mirrorDir,mirrorName),data);
 }
 
 input.close();

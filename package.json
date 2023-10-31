@@ -4,7 +4,7 @@
   "type": "module",
   "main": "./index.js",
   "dependencies": {
-    "nbt-parser": "github:Offroaders123/NBTify#6e8557344f098ac63a806d9b2322e24bd3c1da41"
+    "nbtify": "^1.75.0"
   },
   "devDependencies": {
     "@types/node": "^20.8.9",

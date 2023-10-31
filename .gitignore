@@ -5,5 +5,5 @@ Thumbs.db
 
 /node_modules
 /dist
-/test/nbt_json
-/test/nbt_json_nbt
+/test/nbt_snbt
+/test/nbt_snbt_nbt
