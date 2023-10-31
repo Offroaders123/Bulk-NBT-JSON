@@ -2,6 +2,8 @@
 ._*
 Desktop.ini
 Thumbs.db
-node_modules/
-nbt_json/
-nbt_json_nbt/
+
+/node_modules
+/dist
+/test/nbt_json
+/test/nbt_json_nbt

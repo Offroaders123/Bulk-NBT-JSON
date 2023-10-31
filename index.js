@@ -42,7 +42,7 @@ const conversions = [
 
 console.log(`\nEnter the path to your ${conversions[method].kind.toUpperCase()} directory:`);
 
-const sourceDir = await prompt("> ",method ? "./nbt_json" : "./nbt");
+const sourceDir = await prompt("> ",method ? "./test/nbt_json" : "./test/nbt");
 const mirrorDir = `${sourceDir}_${conversions[method].inverse}`;
 
 try {
