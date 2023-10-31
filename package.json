@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "main": "./index.js",
+  "bin": {
+    "bulk-nbt-json": "./index.js"
+  },
   "dependencies": {
     "nbtify": "^1.75.0"
   },
