@@ -6,7 +6,13 @@ import NBT from "nbt-parser";
 const input = readline.createInterface({ input: process.stdin, output: process.stdout });
 input.on("close",() => process.exit(0));
 
+/**
+ * @param {string} query
+ * @param {string | undefined} fallback
+ * @param {string[]} values
+*/
 async function prompt(query,fallback,values = []){
+  /** @type {string} */
   let response = await new Promise(resolve => input.question(query,resolve));
   if (response === "" || values.length && !values.includes(response)){
     if (fallback === undefined) fallback = values[0];
@@ -62,7 +68,7 @@ for (const entry of entries){
 
   console.log(`Converting "${name}"...`);
   let data = await fs.readFile(path.join(sourceDir,name),{ encoding: method ? "utf8" : null });
-  data = method ? await NBT.write(JSON.parse(data)) : await NBT.parse(data);
+  data = method ? await NBT.write(JSON.parse(/** @type {string} */ (data))) : await NBT.parse(data);
 
   const mirrorName = `${path.basename(name,extension)}.${conversions[method].inverse}`;
   console.log(`Saving "${mirrorName}"...\n`);

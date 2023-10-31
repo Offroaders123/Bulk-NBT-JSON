@@ -2,5 +2,9 @@
   "type": "module",
   "dependencies": {
     "nbt-parser": "github:Offroaders123/NBTify#6e8557344f098ac63a806d9b2322e24bd3c1da41"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "typescript": "^5.2.2"
   }
 }
